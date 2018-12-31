@@ -21,7 +21,7 @@ export default new Router({
     {
       path: '/archive',
       name: 'archive',
-      component: { render: h => h('router-view') },
+      component: { render: (h) => h('router-view') },
       children: [
         {
           path: '',
