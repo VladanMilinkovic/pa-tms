@@ -134,6 +134,8 @@ ul {
                     font-family: 'Lato';
                     font-weight: bold;
                     font-size: 40px;
+                    padding-bottom: 50px;
+                    border-bottom: 2px solid #eeeeee;
                 }
             }
 
@@ -185,5 +187,106 @@ ul {
             }
         }
     }
+}
+
+@media screen and (max-width: 1024px) {
+  
+  ul {
+      padding: 0;
+      margin: 0 15px;
+  }
+
+  .pagination {
+      width: 100%;
+
+      ul {
+
+          li {
+              margin: 0 5px;
+              padding: 5px;
+          }
+      }
+  }
+}
+
+@media screen and (max-width: 480px) {
+    ul {
+    
+        li {
+        
+
+            .post {
+                padding: 50px;
+                margin-bottom: 50px;
+
+                p {
+                    font-size: 18px;
+
+                }
+
+                .post-title {
+
+                    h2 {
+                        font-size: 32px;
+                    }
+                }
+
+                .post-body {
+                    font-size: 18px;
+                }
+
+                a {
+                font-size: 24px;
+                }
+            }
+
+        }
+    }
+}
+@media screen and (max-width: 320px) {
+    ul {
+    
+        li {
+        
+
+            .post {
+                padding: 25px;
+                margin-bottom: 20px;
+
+                p {
+                    font-size: 15px;
+
+                }
+
+                .post-title {
+
+                    h2 {
+                        font-size: 24px;
+                    }
+                }
+
+                .post-body {
+                    font-size: 16px;
+                }
+
+                a {
+                font-size: 20px;
+                }
+            }
+
+        }
+    }
+
+    .pagination {
+      width: 100%;
+
+      ul {
+
+          li {
+              margin: 0 2px;
+              padding: 4px;
+          }
+      }
+  }
 }
 </style>

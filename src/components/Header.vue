@@ -4,7 +4,7 @@
             <h2>Palo Alto</h2>
         </div>
         <div class="header-navigation">
-            <ul>
+            <ul  v-bind:class="{'toggle-on': isActive}">
                 <li>
                     <router-link to="/" exact>Home</router-link>
                 </li>
@@ -22,17 +22,32 @@
                         <img src="@/assets/img/search_black.png" alt="Search">
                     </a>
                 </li>
+                <li>
+                    <a href="#" class="icon" @click="collapseMenu">
+                        <img src="@/assets/img/burger.png" alt="burger">
+                    </a>
+                </li>
             </ul>
         </div>    
     </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
 
-@Component
-export default class Header extends Vue {
-}
+export default {
+    data() {
+        return {
+            isActive: false,
+        };
+    },
+
+    methods: {
+
+        collapseMenu() {
+            this.isActive = !this.isActive;
+        },
+    },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -55,12 +70,19 @@ export default class Header extends Vue {
 
     .header-navigation {
 
-        
         ul {
             list-style-type: none;
 
+            .router-link-active {
+                border-bottom: 2px solid #5c6bc0;
+            }
+
             li {
                 display: inline;
+
+                .icon {
+                    display: none;
+                }
 
                 a {
                     font-size: 16px;
@@ -78,6 +100,58 @@ export default class Header extends Vue {
                 }
             }
         }
+    }
+}
+
+@media screen and (max-width: 600px) {
+  #nav {
+    display: block;
+    margin: 0 15px;
+
+      .header-navigation {
+
+          
+          ul {
+
+                li:not(:last-child) {
+                  display: none;
+                }
+                li {
+
+                    .icon {
+                        display: inline-block;
+
+                        img {
+                            height: 25px;
+                            vertical-align: middle;
+                            right: 15px;
+                            top: 80px;
+                            position: absolute;
+                        }
+                    }
+                }
+            }
+
+            .toggle-on {
+                padding: 0;
+                margin: 0 15px;
+
+                li {
+                    display: block !important;
+                    text-align: center;
+                    padding: 5px 0;
+                }
+            }
+      }
+  }
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+@media screen and (max-width: 480px) {
+    #nav {
+        padding: 64px 0 50px 0;
     }
 }
 </style>

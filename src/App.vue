@@ -33,10 +33,12 @@ html,body {
     width: 952px;
     margin: 0 auto;
     min-height: 100%;
+  }
+}
 
-    .router-link-active {
-        border-bottom: 2px solid #5c6bc0;
-    }
+@media screen and (max-width: 1024px) {
+  #app {
+    width: 100% !important;
   }
 }
 

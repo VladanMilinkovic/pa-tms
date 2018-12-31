@@ -56,6 +56,8 @@ export default Vue.extend({
                 font-family: 'Lato';
                 font-weight: bold;
                 font-size: 40px;
+                padding-bottom: 50px;
+                border-bottom: 2px solid #eeeeee;
             }
         }
 
@@ -82,4 +84,67 @@ export default Vue.extend({
             }
         }
     }
+
+@media screen and (max-width: 600px) {
+  
+    .post {
+        padding: 0;
+        margin: 0 15px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+      .post {
+            padding: 50px;
+            margin-bottom: 50px;
+
+            p {
+                font-size: 18px;
+
+            }
+
+            .post-title {
+
+                h2 {
+                    font-size: 32px;
+                }
+            }
+
+            .post-body {
+                font-size: 18px;
+            }
+
+            a {
+               font-size: 24px;
+            }
+        }
+}
+
+@media screen and (max-width: 320px) {
+     .post {
+        padding: 25px;
+        margin-bottom: 20px;
+
+        p {
+            font-size: 15px;
+
+        }
+
+        .post-title {
+
+            h2 {
+                font-size: 24px;
+            }
+        }
+
+        .post-body {
+            font-size: 16px;
+        }
+
+        a {
+        font-size: 20px;
+        }
+    }
+
+}
 </style>
