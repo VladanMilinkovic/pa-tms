@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="dataReady">
         <ul v-if="posts && posts.length">
             <li v-for="post of posts" :key="post.id">
                 <div class="post">
@@ -47,30 +47,36 @@ export default {
             selected: 0,
             showPagination: false,
             pageValue: 1,
+            dataReady: false,
         };
     },
 
     created() {
-        axios.get(`http://jsonplaceholder.typicode.com/posts`)
-            .then((response) => {
-                for (let i = 1; i * 10 <= response.data.length; i++) {
-                    this.totalPosts.push(i);
-                }
-                axios.get(`http://jsonplaceholder.typicode.com/posts?_page=1`)
-                    .then((res) => {
-                        this.posts = res.data;
-                        this.showPagination = true;
-                    })
-                    .catch((e) => {
-                        this.errors.push(e);
-                    });
-            })
-            .catch((e) => {
-            this.errors.push(e);
-        });
+        this.getData();
     },
 
     methods: {
+
+        getData() {
+            axios.get(`http://jsonplaceholder.typicode.com/posts`)
+                .then((response) => {
+                    for (let i = 1; i * 10 <= response.data.length; i++) {
+                        this.totalPosts.push(i);
+                    }
+                    axios.get(`http://jsonplaceholder.typicode.com/posts?_page=1`)
+                        .then((res) => {
+                            this.posts = res.data;
+                            this.showPagination = true;
+                            this.dataReady = true;
+                        })
+                        .catch((e) => {
+                            this.errors.push(e);
+                        });
+                })
+                .catch((e) => {
+                this.errors.push(e);
+            });
+        },
 
         selectPage($event) {
             this.pageValue = parseInt($event.srcElement.innerText, 10);
@@ -110,6 +116,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/styles/_posts.scss";
+
 ul {
     
     li {
@@ -117,41 +125,41 @@ ul {
         padding: 0;
 
          .post {
-            background: #fff;
+            background: $post-background;
             padding: 25px 99px;
             margin-bottom: 20px;
 
             p {
                 font-size: 14px;
-                font-family: 'Lato';
+                font-family: $font-stack;
                 font-weight: bold;
-                color: #bdbdbd;
+                color: $post-date;
             }
 
             .post-title {
 
                 h2 {
-                    font-family: 'Lato';
+                    font-family: $font-stack;
                     font-weight: bold;
                     font-size: 40px;
                     padding-bottom: 50px;
-                    border-bottom: 2px solid #eeeeee;
+                    border-bottom: 2px solid $post-title-border;
                 }
             }
 
             .post-body {
-                font-family: 'Lato';
+                font-family: $font-stack;
                 font-weight: 400;
                 font-size: 17px;
                 text-align: left;
-                color: #333;
+                color: $post-body-text;
             }
 
             a {
-                font-family: 'Lato';
+                font-family: $font-stack;
                 font-size: 21px;
                 font-weight: bold;
-                color: #5c6bc0;
+                color: $post-link;
                 margin: 55px 0 50px 0;
                 display: inline-block;
             }
@@ -159,10 +167,10 @@ ul {
 
     }
     .highlight {
-        background: #5c6bc0 !important;
+        background: $light-blue !important;
 
         a {
-            color: #fff !important;
+            color: $white !important;
 
         }
     }
@@ -176,12 +184,12 @@ ul {
 
         li {
             padding: 12px 15px;
-            background: #fff;
+            background: $white;
             margin: 0 15px;
             a {
                 font-size: 18px;
                 font-weight: bold;
-                color: #333;
+                color: $primary-color;
                 text-decoration: none;
                 
             }

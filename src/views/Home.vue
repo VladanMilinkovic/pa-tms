@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Home Page</h1>
+    <img src="@/assets/img/wip-logo.png" alt="WorkInProgress">
   </div>
 </template>
 

@@ -39,43 +39,44 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+
     .post {
-        background: #fff;
+        background: $post-background;
         padding: 25px 99px;
 
         p {
             font-size: 14px;
-            font-family: 'Lato';
+            font-family: $font-stack;
             font-weight: bold;
-            color: #bdbdbd;
+            color: $post-date;
         }
 
         .post-title {
 
             h2 {
-                font-family: 'Lato';
+                font-family: $font-stack;
                 font-weight: bold;
                 font-size: 40px;
                 padding-bottom: 50px;
-                border-bottom: 2px solid #eeeeee;
+                border-bottom: 2px solid $post-title-border;
             }
         }
 
         .post-body {
-            font-family: 'Lato';
+            font-family: $font-stack;
             font-weight: 400;
             font-size: 17px;
             text-align: left;
-            color: #333;
+            color: $post-body-text;
         }
 
         .comments {
 
             h4 {
-                font-family: 'Lato';
+                font-family: $font-stack;
                 font-size: 16px;
                 font-weight: bold;
-                color: #333;
+                color: $post-body-text;
                 margin-bottom: 5px;
                 margin-top: 40px;
             }

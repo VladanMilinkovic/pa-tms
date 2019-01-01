@@ -48,11 +48,12 @@ export default class Footer extends Vue {
 </script>
 
 <style lang="scss" scoped>
+
     footer {
-        background-color: #5c6bc0;
+        background-color: $footer-background;
         text-align: center;
         margin-top: 115px;
-        font-family: 'Lato';
+        font-family: $font-stack;
 
 
         .footer-body {
@@ -60,7 +61,7 @@ export default class Footer extends Vue {
             margin: 0 auto;
         
             h2 {
-                color: #4a569a;
+                color: $footer-title;
                 font-size: 36px;
                 font-weight: bold;
                 font-style: italic;
@@ -74,7 +75,7 @@ export default class Footer extends Vue {
                     margin: 0 0 40px 0;
 
                     .router-link-active {
-                        border-bottom: 2px solid #fff;
+                        border-bottom: 2px solid  $white;
                     }
 
                     li {
@@ -86,8 +87,8 @@ export default class Footer extends Vue {
                             padding: 0 10px;
                             text-decoration: none;
                             font-weight: bold;
-                            font-family: 'Lato';
-                            color: #ffffff;
+                            font-family: $font-stack;
+                            color: $footer-nav;
 
                             img {
                                 height: 25px;
@@ -99,19 +100,19 @@ export default class Footer extends Vue {
             }
 
             .footer-content {
-                color: #9da6d9;
+                color: $footer-text;
                 font-size: 13px;
                 text-align: center;
                 padding: 40px 0;
-                border-top: 1px solid #5765b5;
-                border-bottom: 1px solid #5765b5;
+                border-top: 1px solid $footer-border;
+                border-bottom: 1px solid $footer-border;
             }
 
             .social {
                 
                 p {
                     font-size: 14px;
-                    color:#9da6d9;
+                    color: $footer-text;
                     text-align: center;
                     margin: 0;
                     padding: 38px 0;

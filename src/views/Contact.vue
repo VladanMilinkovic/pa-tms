@@ -1,3 +1,5 @@
 <template>
-    <h1>Contact Page</h1>
+    <div>
+        <img src="@/assets/img/wip-logo.png" alt="WorkInProgress">
+    </div>
 </template>

@@ -51,6 +51,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 #nav {
     display: flex; 
     justify-content: space-between;
@@ -59,11 +60,11 @@ export default {
     .header-title {
 
         h2 {
-            font-family: 'Lato';
+            font-family: $font-stack;
             font-weight: bold;
             font-style: italic;
             font-size: 42px;
-            color: #333333;
+            color: $header-title-logo;
             margin: 0;
         }
     }
@@ -74,7 +75,7 @@ export default {
             list-style-type: none;
 
             .router-link-active {
-                border-bottom: 2px solid #5c6bc0;
+                border-bottom: 2px solid $navigation-border-active;
             }
 
             li {
@@ -90,8 +91,8 @@ export default {
                     padding: 0 10px;
                     text-decoration: none;
                     font-weight: bold;
-                    font-family: 'Lato';
-                    color: #333333;
+                    font-family: $font-stack;
+                    color: $navigation-text;
 
                     img {
                         height: 25px;
