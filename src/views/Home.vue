@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img src="@/assets/img/wip-logo.png" alt="WorkInProgress">
+    <img :src="require('@/assets/img/wip-logo.png')"  alt="WorkInProgress">
   </div>
 </template>
 
@@ -8,3 +8,9 @@
 
 export default {};
 </script>
+
+<style lang="scss" scoped>
+  img {
+    width: $image-width;
+  }
+</style>

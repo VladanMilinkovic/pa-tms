@@ -1,5 +1,6 @@
 <template>
-    <div v-if="dataReady">
+    <div>
+        <div class="loading" v-if="loading"></div>
         <ul v-if="posts && posts.length">
             <li v-for="post of posts" :key="post.id">
                 <div class="post">
@@ -14,7 +15,6 @@
                 </div>
             </li>
         </ul>
-
         <ul v-if="errors && errors.length">
             <li v-for="error of errors" :key="error.id">
             {{error.message}}
@@ -37,18 +37,31 @@
 
 <script>
 import axios from 'axios';
+import $store from '@/store.ts';
 
 export default {
     data() {
         return {
+            loading: false,
             posts: [],
             errors: [],
             totalPosts: [],
             selected: 0,
             showPagination: false,
             pageValue: 1,
-            dataReady: false,
         };
+    },
+    // check if user came from post route and if that true
+    // load previous page
+    beforeRouteEnter(to, from, next) {
+       const param = from.params.id;
+       const page = $store.state.selectPage;
+       next((vm) => {
+           if (from.fullPath === '/archive/' + param) {
+               vm.pageValue = page;
+               vm.selected = page - 1;
+           }
+        });
     },
 
     created() {
@@ -58,16 +71,17 @@ export default {
     methods: {
 
         getData() {
+            this.loading = true;
             axios.get(`http://jsonplaceholder.typicode.com/posts`)
                 .then((response) => {
                     for (let i = 1; i * 10 <= response.data.length; i++) {
                         this.totalPosts.push(i);
                     }
-                    axios.get(`http://jsonplaceholder.typicode.com/posts?_page=1`)
+                    axios.get(`http://jsonplaceholder.typicode.com/posts?_page=` + this.pageValue)
                         .then((res) => {
                             this.posts = res.data;
                             this.showPagination = true;
-                            this.dataReady = true;
+                            this.loading = false;
                         })
                         .catch((e) => {
                             this.errors.push(e);
@@ -77,33 +91,12 @@ export default {
                 this.errors.push(e);
             });
         },
-
+        // Select page from pagination
         selectPage($event) {
             this.pageValue = parseInt($event.srcElement.innerText, 10);
             this.selected = this.pageValue - 1;
+            this.$store.state.selectPage = this.pageValue;
             axios.get(`http://jsonplaceholder.typicode.com/posts?_page=` + this.pageValue)
-                .then((response) => {
-                    this.posts = response.data;
-                })
-                .catch((e) => {
-                    this.errors.push(e);
-            });
-        },
-
-        nextOrPrev($event) {
-            const element = $event.srcElement.innerText;
-            let post;
-            if (element === 'Prev') {
-                post = this.pageValue - 1;
-                this.selected = post - 1;
-            }
-
-            if ( element === 'Next') {
-                post = this.pageValue + 1;
-                this.selected = this.pageValue;
-            }
-            this.pageValue = post;
-            axios.get(`http://jsonplaceholder.typicode.com/posts?_page=` + post)
                 .then((response) => {
                     this.posts = response.data;
                 })
@@ -116,7 +109,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/styles/_posts.scss";
+@import '@/assets/styles/_loader.scss';
 
 ul {
     
@@ -183,7 +176,6 @@ ul {
         justify-content: center;
 
         li {
-            padding: 12px 15px;
             background: $white;
             margin: 0 15px;
             a {
@@ -191,6 +183,8 @@ ul {
                 font-weight: bold;
                 color: $primary-color;
                 text-decoration: none;
+                padding: 12px 15px;
+                display: flex;
                 
             }
         }
@@ -211,7 +205,11 @@ ul {
 
           li {
               margin: 0 5px;
-              padding: 5px;
+
+              a {
+                padding: 5px;
+              }
+              
           }
       }
   }
@@ -292,7 +290,11 @@ ul {
 
           li {
               margin: 0 2px;
-              padding: 4px;
+
+              a {
+                padding: 4px;
+              }
+              
           }
       }
   }

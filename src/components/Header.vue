@@ -4,7 +4,7 @@
             <h2>Palo Alto</h2>
         </div>
         <div class="header-navigation">
-            <ul  v-bind:class="{'toggle-on': isActive}">
+            <ul  :class="{'toggle-on': isActive}">
                 <li>
                     <router-link to="/" exact>Home</router-link>
                 </li>
@@ -23,7 +23,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="icon" @click="collapseMenu">
+                    <a href="#" class="icon" @click="isActive = !isActive">
                         <img src="@/assets/img/burger.png" alt="burger">
                     </a>
                 </li>
@@ -39,13 +39,6 @@ export default {
         return {
             isActive: false,
         };
-    },
-
-    methods: {
-
-        collapseMenu() {
-            this.isActive = !this.isActive;
-        },
     },
 };
 </script>

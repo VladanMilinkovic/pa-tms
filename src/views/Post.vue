@@ -1,17 +1,39 @@
 <template>
-    <div class="post">
-        <p>Sep 11</p>
-        <div class="post-title">
-            <h2>{{ post.title }}</h2>
+    <div>
+        <div class="loading" v-if="loading"></div>
+        <div class="post">
+            <p>Sep 11</p>
+            <div class="post-title">
+                <h2>{{ post.title }}</h2>
+            </div>
+            <div class="post-body">
+                {{ post.body }}
+            </div>
+            <div class="comments">
+                <h4>Comments</h4>
+                <textarea 
+                    name="comments" 
+                    id="comments" 
+                    cols="30" 
+                    rows="3" 
+                    v-model="textMessage"></textarea>
+                <button @click="createComment">Submit</button>
+                <div>
+                    <ul v-if="comments && comments.length">
+                        <li v-for="comment of comments" :key="comment">
+                            <span>{{ comment }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="post-body">
-            {{ post.body }}
-        </div>
-        <div class="comments">
-            <h4>Comments</h4>
-            <textarea name="" id="" cols="30" rows="5"></textarea>
-        </div>
+        <ul v-if="errors && errors.length">
+            <li v-for="error of errors" :key="error.id">
+            {{error.message}}
+            </li>
+        </ul>
     </div>
+   
 </template>
 
 <script lang="ts">
@@ -21,24 +43,46 @@ import axios from 'axios';
 export default Vue.extend({
     data() {
         return {
+            loading: true,
             post: [],
             errors: [],
+            textMessage: '',
+            comments: [],
         };
     },
 
     created() {
-        axios.get(`http://jsonplaceholder.typicode.com/posts/` + this.$route.params.id)
-            .then((response) => {
-            this.post = response.data;
-            })
-            .catch((e) => {
-                this.errors = e;
+       this.getPost();
+    },
+
+    methods: {
+        // Fetch singe post from jsonplaceholder API adding id on request
+        getPost() {
+            axios.get(`http://jsonplaceholder.typicode.com/posts/` + this.$route.params.id)
+                .then((response) => {
+                this.post = response.data;
+                this.loading = false;
+                })
+                .catch((e) => {
+                    this.errors = e;
             });
         },
-    });
+        // on submit update comments array and display new comment
+        createComment() {
+            if (this.textMessage !== '') {
+                // @ts-ignore
+                this.comments.push(this.textMessage);
+                this.textMessage = '';
+            } else {
+                alert('Insert text message before submit');
+            }
+        },
+    },
+});
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/_loader.scss';
 
     .post {
         background: $post-background;
@@ -82,14 +126,53 @@ export default Vue.extend({
             }
             textarea {
                 width: 100%;
+                width: -moz-available;
+                width: -webkit-fill-available;
+                width: fill-available;
+                padding: 5px 10px; 
+                font-family: $font-stack;
+            }
+
+            button {
+                background: #cecece;
+                border: none;
+                padding: 5px 15px;
+                font-size: 14px;
+                font-weight: bold;
+                color: #333;
+                cursor: pointer;
+            }
+
+            ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 30px 0;
+
+                li {
+                    background: #f7f9fc;
+                    font-family: $font-stack;
+                    padding: 10px;
+                    text-align: center;
+                    margin: 10px 0;
+                    white-space: pre;
+
+                    span {
+                        font-size: 16px;
+                    }
+                }
             }
         }
     }
 
+@media screen and (max-width: 1024px) {
+  
+  .post {
+      margin: 0 15px;
+  }
+}
 @media screen and (max-width: 600px) {
   
     .post {
-        padding: 0;
         margin: 0 15px;
     }
 }
