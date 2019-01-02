@@ -1,0 +1,30 @@
+//Global sets
+$image-width: 100%;
+$font-stack: 'Lato';
+
+// Global colors
+$primary-color: #333;
+$background: #f7f9fc;
+$white: #fff;
+$black: #000;
+$light-blue: #5c6bc0;
+
+// Header colors
+$header-title-logo: $primary-color;
+$navigation-text: $primary-color;
+$navigation-border-active: $light-blue;
+
+// Post Background
+$post-background: $white;
+$post-title: $black;
+$post-title-border: #eeeeee;
+$post-date: #bdbdbd;
+$post-body-text: $primary-color;
+$post-link: $light-blue;
+
+// Footer colors
+$footer-background: $light-blue;
+$footer-title: #4a569a;
+$footer-text: #9da6d9;
+$footer-border: #5765b5;
+$footer-nav: $white;
