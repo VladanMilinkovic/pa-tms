@@ -93,7 +93,7 @@ export default Vue.extend({
 @import '@/assets/styles/_loader.scss';
 
     .goBack {
-
+        
         a {
             text-decoration: none;
             background: #333;
@@ -186,10 +186,14 @@ export default Vue.extend({
     }
 
 @media screen and (max-width: 1024px) {
+
+    .goBack {
+        margin: 0 15px;
+    }
   
-  .post {
-      margin: 0 15px;
-  }
+    .post {
+        margin: 0 15px;
+    }
 }
 @media screen and (max-width: 600px) {
   
